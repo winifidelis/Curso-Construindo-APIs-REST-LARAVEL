@@ -31,10 +31,15 @@ Route::get('/test', function(Request $request) {
 //Route::get('/products', function(){
 //    return Products::all();
 //});
-Route::namespace('Api')->prefix('products')->group(function() {
-    Route::get('/', 'ProductController@index');
-    Route::get('/{id}', 'ProductController@show');
-    Route::post('/', 'ProductController@save');
-    Route::put('/', 'ProductController@update');
-    Route::delete('/{id}', 'ProductController@delete');
+Route::namespace('Api')->group(function() {
+    //Products route
+    Route::prefix('products')->group(function(){
+        Route::get('/', 'ProductController@index');
+        Route::get('/{id}', 'ProductController@show');
+        Route::post('/', 'ProductController@save')->middleware('auth.basic');
+        Route::put('/', 'ProductController@update');
+        Route::delete('/{id}', 'ProductController@delete');
+    });
+    
+    Route::resource('/users', 'UserController');
 });

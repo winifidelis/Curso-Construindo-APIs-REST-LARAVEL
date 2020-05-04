@@ -9,7 +9,8 @@ class ProductCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
@@ -17,11 +18,12 @@ class ProductCollection extends ResourceCollection
         //return parent::toArray($request);
         return [
             'data' => $this->collection,
-            'extra' => 'Dado adicional'
+            'extra' => 'Dado adicional',
         ];
     }
-    
-    public function with($request) {
+
+    public function with($request)
+    {
         return ['extra_information' => 'Outra infomação extra'];
     }
 }

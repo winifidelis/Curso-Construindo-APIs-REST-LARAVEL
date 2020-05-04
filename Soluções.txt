@@ -1,0 +1,7 @@
+formatador no VSCode.
+https://github.com/Unibeautify/vscode/issues/21
+procurar por Unibeautify
+ele irá solicitar mais uma instalação
+https://github.com/junstyle/vscode-php-cs-fixer
+https://github.com/bmewburn/vscode-intelephense
+

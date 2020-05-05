@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RealStateRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,9 @@ class RealStateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
+            'name' => 'required',
             'description' => 'required',
-            'content' => 'required',
-            'price' => 'required',
-            'bathrooms' => 'required',
-            'bedrooms' => 'required',
-            'property_area' => 'required',
-            'total_property_area' => 'required',
-            //'slug', esse eu irei g erar automaticamente
+            //'slug' gerado automaticamente
         ];
     }
 }

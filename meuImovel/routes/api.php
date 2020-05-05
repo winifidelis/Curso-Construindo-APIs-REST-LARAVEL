@@ -19,7 +19,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->namespace('Api')->group(function () {
-    Route::name('real_states')->group(function () {
+    Route::name('real_states.')->group(function () {
         Route::resource('real-states', 'RealStateController'); //api/v1/real-states
+    });
+    Route::name('users.')->group(function () {
+        Route::resource('users', 'UserController'); //api/v1/users
+    });
+    Route::name('categories.')->group(function () {
+        Route::resource('categories', 'CategoryController'); //api/v1/categories
     });
 });

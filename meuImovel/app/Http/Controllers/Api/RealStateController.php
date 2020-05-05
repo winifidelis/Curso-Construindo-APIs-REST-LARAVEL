@@ -42,8 +42,26 @@ class RealStateController extends Controller
     {
         $data = $request->all();
 
+        $images = $request->file('images');
+
         try {
             $realState = $this->realState->create($data); //Adicionando dados em massa
+
+            if (isset($data['categories']) && count($data['categories'])) {
+                //sync faz a sincronização 
+                $realState->categories()->sync($data['categories']);
+            }
+
+            if ($images) {
+                $imagesUploaded = [];
+                foreach ($images as $image) {
+                    $path = $image->store('images', 'public');
+                    $imagesUploaded[] = ['photo' => $path, 'is_thumb' => false];
+                }
+
+                $realState->photos()->createMany($imagesUploaded);
+            }
+
             return response()->json([
                 'data' => [
                     'msg' => 'Imóvel cadastrado com sucesso!'
@@ -58,10 +76,27 @@ class RealStateController extends Controller
     public function update($id, RealStateRequest $request)
     {
         $data = $request->all();
+        $images = $request->file('images');
 
         try {
             $realState = $this->realState->findOrFail($id);
             $realState->update($data);
+
+            if (isset($data['categories']) && count($data['categories'])) {
+                //sync faz a sincronização 
+                $realState->categories()->sync($data['categories']);
+            }
+
+            if ($images) {
+                $imagesUploaded = [];
+                foreach ($images as $image) {
+                    $path = $image->store('images', 'public');
+                    $imagesUploaded[] = ['photo' => $path, 'is_thumb' => false];
+                }
+
+                $realState->photos()->createMany($imagesUploaded);
+            }
+
             return response()->json([
                 'data' => [
                     'msg' => 'Imóvel atualizado com sucesso!'

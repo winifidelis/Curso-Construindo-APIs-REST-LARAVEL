@@ -5,3 +5,38 @@ ele irá solicitar mais uma instalação
 https://github.com/junstyle/vscode-php-cs-fixer
 https://github.com/bmewburn/vscode-intelephense
 
+Para utlizar a autenticação eu utilizei alguns pacotes que devem ser instalados
+veja o link abaixo para ter mais informações do pacote
+https://github.com/tymondesigns/jwt-auth
+
+para instalar o pacote no projeto executar o comando
+composer require tymon/jwt-auth:1.0.0
+ele irá instalar uma versão compatível para utilizar, caso tenha problema veja as compatilidades no link
+https://packagist.org/packages/tymon/jwt-auth#1.0.0
+ou nas tags dos ramos do projeto
+depois executar o comando abaixo para instalar e publicar o JWT
+php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+executar o comando para gerar uma chave secreta para o JWT
+php artisan jwt:secret
+dentro de ./config/auth.php
+fazer as modificações
+/*
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+        */
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+executar
+composer dump
+
+vai ficar apresentando um erro mesmo, mas vai funcionar
+
+adicionar no Kernel.php dentro de protected $routeMiddleware = [
+'jwt.auth' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
+

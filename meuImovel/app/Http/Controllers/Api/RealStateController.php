@@ -25,7 +25,8 @@ class RealStateController extends Controller
     public function show($id)
     {
         try {
-            $realState = $this->realState->findOrFail($id);
+            $realState = $this->realState->with('photos')->findOrFail($id);
+
             return response()->json([
                 'data' => [
                     'msg' => 'Imóvel exibido com sucesso!',

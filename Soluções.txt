@@ -39,4 +39,5 @@ vai ficar apresentando um erro mesmo, mas vai funcionar
 
 adicionar no Kernel.php dentro de protected $routeMiddleware = [
 'jwt.auth' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
+depois de criar o middleware colocar isso no arquivo API de rotas. veja como ficou no projeto é simples
 

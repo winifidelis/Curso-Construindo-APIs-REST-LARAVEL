@@ -24,6 +24,10 @@ Route::prefix('v1')->namespace('Api')->group(function () {
     Route::get('logout','Auth\\LoginJwtController@logout')->name('logout');
     Route::get('refresh','Auth\\LoginJwtController@refresh')->name('refresh');
 
+    //estou criando as rotas aqui para facilitar a minha vida mesmo
+    //pois abaixo estou com uma altenticação funcionando
+    Route::get('/search', 'RealStateSearchController@index')->name('search');
+
     Route::group(['middleware' => ['jwt.auth']], function(){
         Route::name('real_states.')->group(function () {
             Route::resource('real-states', 'RealStateController'); //api/v1/real-states

@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class RealState extends Model
 {
+    //isso aqui abaixo retorna na serialização
+    //alem de retornar as informações do imovel
+    //ele irá adicionar os atributos do getLinksAttributes
+    protected $appends = ['links','thumb'];
+
     //a linha abaixo modifica a propriedade do table
     //aqui no caso eu saio da convenção do laravel
     //eu posso passar um nome no singular da minha tabela
@@ -23,6 +28,30 @@ class RealState extends Model
         'total_property_area',
         'slug',
     ];
+
+    //método acessor
+    //$realState->links ele retorna isso aqui abaixo
+    //dessa forma quem programar o frontend não precisa montar o link, ele já vem propnto
+    public function getLinksAttribute()
+    {
+        //return 'OK';
+        //dd($this->id);
+        //return route('real_states.real-states.show', $this->id);
+        
+        return [
+            'href' => route('real_states.real-states.show', $this->id),
+            'rel' => 'Imóveis',
+            'id' => $this->id
+        ];
+        
+    }
+
+    public function getThumbAttribute(){
+        $thumb = $this->photos()->where('is_thumb', true);
+        if(!$thumb->count()) return null;
+
+        return $thumb->first()->photo;
+    }
 
     public function user()
     {
@@ -42,7 +71,7 @@ class RealState extends Model
         return $this->hasMany(RealStatePhoto::class);
     }
 
-    public function adress()
+    public function address()
     {
         return $this->belongsTo(Address::class);
     }

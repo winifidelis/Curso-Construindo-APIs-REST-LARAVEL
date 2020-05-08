@@ -27,6 +27,7 @@ Route::prefix('v1')->namespace('Api')->group(function () {
     //estou criando as rotas aqui para facilitar a minha vida mesmo
     //pois abaixo estou com uma altenticação funcionando
     Route::get('/search', 'RealStateSearchController@index')->name('search');
+    Route::get('/search/{real_state_id}', 'RealStateSearchController@show')->name('single_search');
 
     Route::group(['middleware' => ['jwt.auth']], function(){
         Route::name('real_states.')->group(function () {

@@ -9,7 +9,8 @@ abstract class AbstractRepository
 	/**
 	 * @var Model
 	 */
-	private $model;
+	//private $model;
+	protected $model;
 
 	public function __construct(Model $model)
 	{

@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
+    //fiz uma coisa errada aqui
+    //eu coloquei a classe com um nome e na banco está outro nome
+    //então ire definir aqui o apontamento para o banco da forma correta
+    protected $table = 'adresses';
+
     public function state(){
         return $this->belongsTo(State::class);
     }

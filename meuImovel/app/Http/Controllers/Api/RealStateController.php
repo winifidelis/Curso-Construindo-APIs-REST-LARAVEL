@@ -29,7 +29,13 @@ class RealStateController extends Controller
         try {
 
             //$realState = $this->realState->with('photos')->findOrFail($id);
-            $realState = auth('api')->user()->real_state()->with('photos')->findOrFail($id);
+            $realState = auth('api')->user()
+                ->real_state()
+                ->with('photos')
+                ->findOrFail($id)->makeHidden('thumb');
+                //esse ->makeHidden('thumb')
+                //esconde o getThumbAttribute()
+                //que está nas propriedades do modelo
 
             return response()->json([
                 'data' => [
